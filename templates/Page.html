@@ -1,0 +1,18 @@
+<head>
+    <meta charset="UTF-8">
+    <title>{{ model.title }}</title>
+</head>
+<body>
+<p>Это твоё название: {{ model.title }}</p>
+<p>Это твой url-слаг: {{ model.slug }}</p>
+<p>Это твой Контент: {{ model.content }}</p>
+<p>Это твой статус: {{ model.status }}</p>
+<p>Это твоя дата создания: {{ model.created }}</p>
+<p>Это твоя дата изменения: {{ model.modified }}</p>
+<p>Это твой test: {{ model.seo_title }}</p>
+<p>Это твои ключевые слова: {{ model.seo_keywords }}</p>
+<p>Это твоё описание : {{ model.seo_description }}</p>
+<li><a href="{% url 'main:amp' model.slug %}">В режиме AMP</a></li>
+<li><a href="{% url 'main:ya' model.slug %}">В режиме ТУРБО</a></li>
+</body>
+
