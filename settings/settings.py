@@ -1,9 +1,12 @@
 import os
+import django_heroku
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "2ysw&6r^6u8ddvp@i!%1llrm50c*3twxpwp6b@d!blcl$-6$iv"
 
 DEBUG = False
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 ADMINS = (
     # ('Ivan Lukyanets', 'ivan@il-studio.ru'),
 )
@@ -22,7 +25,6 @@ DJANGO_APPS = [
 THIRD_APPS = [
     'ckeditor',
     'ckeditor_uploader',
-    'amp_tools',
 ]
 
 CUSTOM_APPS = [
@@ -40,7 +42,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'amp_tools.middleware.AMPDetectionMiddleware',
 ]
 
 ROOT_URLCONF = 'settings.urls'
@@ -67,7 +68,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'settings.wsgi.application'
 
-
 DATABASES = {
     'default': {
         'ENGINE': os.getenv('DB_ENGINE'),
@@ -76,7 +76,6 @@ DATABASES = {
         'PASSWORD': os.getenv('DB_PASSWORD'),
     }
 }
-
 
 LANGUAGE_CODE = 'ru'
 
@@ -90,7 +89,6 @@ USE_TZ = True
 
 SITE_ID = 1
 
-
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
@@ -99,8 +97,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_nginx')
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
-
+CKEDITOR_UPLOAD_PATH = 'uploads/'
 if os.getenv('EMAIL_HOST'):
     EMAIL_HOST = os.getenv('EMAIL_HOST')
     EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
@@ -113,7 +110,7 @@ CKEDITOR_CONFIGS = {
 
     'default': {
 
-     'toolbar': 'None'
+        'toolbar': 'None'
 
     },
 
@@ -123,3 +120,6 @@ try:
     from .local_settings import *
 except ImportError:
     pass
+
+# Configure Django App for Heroku.
+django_heroku.settings(locals())
